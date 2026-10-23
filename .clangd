@@ -1,0 +1,13 @@
+CompileFlags:
+  Remove:
+    - -fmodules-ts
+    - -fmodule-mapper=*
+    - -fdeps-format=*
+  CompilationDatabase: "build"
+
+Index:
+  Background: Build
+
+Completion:
+  ArgumentLists: Delimiters
+  HeaderInsertion: Never

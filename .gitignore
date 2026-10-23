@@ -66,3 +66,19 @@ vcpkg_installed/
 # test output & cache
 Testing/
 .cache/
+*.rbl
+# *.md
+results*/
+data/*
+.vscode
+
+# Runtime logs
+/logs/
+
+# Simulation recordings and telemetry
+/output/
+*.rrd
+
+# Shipped viewer layout (regenerate with scripts/generate_blueprint.py)
+!/scripts/log_transformer.rbl
+!/resources/polaris.rbl
