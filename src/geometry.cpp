@@ -24,11 +24,9 @@ advance(State state, Control control, double dt)
 {
   // Eq. (1), forward Euler differential-drive kinematics. The same model
   // is used by both shooting and the simulated plant.
-  return {
-      state.x + dt * control.speed * std::cos(state.yaw),
-      state.y + dt * control.speed * std::sin(state.yaw),
-      wrap_angle(state.yaw + dt * control.yaw_rate),
-  };
+  return {state.x + dt * control.speed * std::cos(state.yaw),
+          state.y + dt * control.speed * std::sin(state.yaw),
+          wrap_angle(state.yaw + dt * control.yaw_rate)};
 }
 
 Distance
@@ -62,10 +60,8 @@ point_rectangle_distance(Vec2 point, State state, Vehicle vehicle)
   {
     gy = sign_y;
   }
-  return {
-      outside + std::min(std::max(qx, qy), 0.0),
-      {-c * gx + s * gy, -s * gx - c * gy, local_y * gx - local_x * gy},
-  };
+  return {outside + std::min(std::max(qx, qy), 0.0),
+          {-c * gx + s * gy, -s * gx - c * gy, local_y * gx - local_x * gy}};
 }
 
 std::array<Vec2, 5>
@@ -74,16 +70,13 @@ footprint(State state, Vehicle vehicle)
   auto const hx = vehicle.length / 2.0;
   auto const hy = vehicle.width / 2.0;
   std::array<Vec2, 5> corners{
-      {{hx, hy}, {-hx, hy}, {-hx, -hy}, {hx, -hy}, {hx, hy}},
-  };
+      {{hx, hy}, {-hx, hy}, {-hx, -hy}, {hx, -hy}, {hx, hy}}};
   auto const c = std::cos(state.yaw);
   auto const s = std::sin(state.yaw);
   for(auto& corner : corners)
   {
-    corner = {
-        state.x + c * corner.x - s * corner.y,
-        state.y + s * corner.x + c * corner.y,
-    };
+    corner = {state.x + c * corner.x - s * corner.y,
+              state.y + s * corner.x + c * corner.y};
   }
   return corners;
 }
